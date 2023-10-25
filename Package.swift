@@ -22,7 +22,7 @@ let package = Package(
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
-        .package(url: "https://github.com/matsune/swift-mqtt", from: "1.0.0"),
+        .package(url: "https://github.com/GsMoMo/swift-mqtt", branch: "master"),
         .package(url: "https://github.com/apple/swift-crypto.git", .upToNextMajor(from: "1.0.1"))
     ],
     targets: [
