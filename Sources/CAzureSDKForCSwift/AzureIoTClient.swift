@@ -296,7 +296,8 @@ public class AzureIoTHubClient {
     
     public func GetTelemetryPublishTopic(properties: AzureIoTMessageProperties? = nil) -> String
     {
-        var topicCharArray = [CChar](repeating: 0, count: 100)
+        let arraySize = 1024
+        var topicCharArray = [CChar](repeating: 0, count: arraySize)
         var topicLength : Int = 0
 
         var copyProps: AzureIoTMessageProperties
@@ -306,14 +307,12 @@ public class AzureIoTHubClient {
           // This has to be done since the API below requires an in/out. Copy the struct to pass to embedded API.
           copyProps = properties!
           copyEmbedded = copyProps.embeddedProperties
-          let _ : az_result = az_iot_hub_client_telemetry_get_publish_topic(&self.embeddedHubClient, &copyEmbedded, &topicCharArray, 100, &topicLength )
+          let _ : az_result = az_iot_hub_client_telemetry_get_publish_topic(&self.embeddedHubClient, &copyEmbedded, &topicCharArray, arraySize, &topicLength )
         }
         else
         {
-            let _ : az_result = az_iot_hub_client_telemetry_get_publish_topic(&self.embeddedHubClient, nil, &topicCharArray, 100, &topicLength )
+            let _ : az_result = az_iot_hub_client_telemetry_get_publish_topic(&self.embeddedHubClient, nil, &topicCharArray, arraySize, &topicLength )
         }
-
-        
         
         return String(cString: topicCharArray)
     }

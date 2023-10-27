@@ -5,11 +5,11 @@ public var AzureIoTMessagePropertyContentType = AZ_IOT_MESSAGE_PROPERTIES_CONTEN
 public struct AzureIoTMessageProperties
 {
   public var embeddedProperties: az_iot_message_properties = az_iot_message_properties()
-  private var embeddedPropertyBuffer = [UInt8](repeating: 0, count: 128)
+  private var embeddedPropertyBuffer = [UInt8](repeating: 0, count: 1024)
 
   public init()
   {
-    let embeddedPropertyBufferSpan = AzSpan.init(ptr: &embeddedPropertyBuffer, size: 128)
+    let embeddedPropertyBufferSpan = AzSpan.init(ptr: &embeddedPropertyBuffer, size: 1024)
     let _ : az_result = az_iot_message_properties_init(&embeddedProperties, embeddedPropertyBufferSpan.toCAzSpan(), 0)
   }
 
